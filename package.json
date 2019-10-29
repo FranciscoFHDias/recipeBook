@@ -1,0 +1,49 @@
+{
+  "name": "recipeBook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node db/seeds.js",
+    "serve:backend": "nodemon",
+    "serve:frontend": "webpack-dev-server --mode development",
+    "test": "mocha test/**/*_spec.js --require test/helper --recursive --exit",
+    "start": "node index",
+    "build": "webpack -p"
+  },
+  "repository": "git@github.com:FranciscoFHDias/recipeBook.git",
+  "author": "Francisco Dias <francisco.ffbhd@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "axios": "^0.19.0",
+    "babel-loader": "^8.0.6",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "css-loader": "^3.2.0",
+    "dotenv-webpack": "^1.7.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.7",
+    "mongoose-unique-validator": "^2.0.3",
+    "node-sass": "^4.13.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.16.0",
+    "mocha": "^6.2.2",
+    "supertest": "^4.0.2"
+  }
+}
