@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Recipe = require('../models/Recipe')
 const User = require('../models/User')
-const recipeData = require('./data/locationData')
+const recipeData = require('./data/recipeData')
 const userData = require('./data/userData')
 const { dbURI } = require('../config/environment')
 

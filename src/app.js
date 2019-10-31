@@ -6,14 +6,18 @@ import './styles.scss'
 import Home from './components/pages/home'
 import Login from './components/auth/login'
 import Register from './components/auth/register'
+import IndexRecipes from './components/recipes/indexRecipes'
+import Navbar from './components/common/navbar'
 
 class App extends React.Component {
   render() {
     return(
       <HashRouter>
+        <Navbar />
         <Switch>
           <Route path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
+          <Route path="/recipes" component={ IndexRecipes } />
           <Route path="/" component={ Home } />
         </Switch>
       </HashRouter>

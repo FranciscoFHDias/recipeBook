@@ -32,7 +32,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <section className="hero is-light">
+      <section className="hero is-large">
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="column is-4 is-offset-4">
