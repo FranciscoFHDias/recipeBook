@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Auth from '../../lib/auth'
 
 class Home extends React.Component {
   render() {
@@ -14,20 +15,20 @@ class Home extends React.Component {
               Your favorite cooking buddy!
             </h2>
             <div className="buttons are-normal">
-              <Link 
+              {!Auth.isAuthenticated() && <Link 
                 className="button"
                 to={{
                   pathname: '/login'
                 }}>
                   Login
-              </Link>
-              <Link 
+              </Link>}
+              {!Auth.isAuthenticated() && <Link 
                 className="button"
                 to={{
                   pathname: '/register'
                 }}>
                   Register
-              </Link>
+              </Link>}
             </div>
           </div>
         </div>

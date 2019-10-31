@@ -6,7 +6,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: { type: [String], required: 'Please provide ingredients list' },
   preparationTime: { type: Number, required: 'Please provide preparation time' },
   cookingTime: { type: Number, required: 'Please provide preparation time' },
-  dietery: { type: [String] },
+  dietary: { type: [String] },
   method: { type: [String] , required: 'Please provide cooking method.'},
   image: { type: String, required: 'Please provide cooking method.' }
 })

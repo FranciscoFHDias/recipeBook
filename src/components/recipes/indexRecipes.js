@@ -12,14 +12,14 @@ class IndexRecipes extends React.Component{
   }
 
   componentDidMount() {
-    axios.get('/api/recipes')
+    axios
+      .get('/api/recipes')
       .then(res => {
         this.setState({ recipes: res.data })
       })
   }
 
   render() {
-    console.log(this.state.recipes)
     return(
       <section className="section">
         <div className="container">

@@ -27,7 +27,6 @@ function createRoute(req, res, next) {
 }
 
 function updateRoute(req, res, next) {
-  console.log(req.body)
   Recipe
     .findById(req.params.id)
     .then(recipe => {

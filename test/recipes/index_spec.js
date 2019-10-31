@@ -10,12 +10,14 @@ describe('GET /recipes', () => {
   })
 
   afterEach(done => {
-    Recipe.deleteMany({})
+    Recipe
+      .deleteOne({})
       .then(() => done())
   })
 
   it('should return a 200 response', done => {
-    api.get('/api/recipes')
+    api
+      .get('/api/recipes')
       .end((err, res) => {
         expect(res.status).to.eq(200)
         done()
@@ -23,7 +25,8 @@ describe('GET /recipes', () => {
   })
 
   it('should return an array', done => {
-    api.get('/api/recipes')
+    api
+      .get('/api/recipes')
       .end((err, res) => {
         expect(res.body).to.be.an('array')
         done()
@@ -31,7 +34,8 @@ describe('GET /recipes', () => {
   })
 
   it('should return an array of objects', done => {
-    api.get('/api/recipes')
+    api
+      .get('/api/recipes')
       .end((err, res) => {
         res.body.forEach(recipe => {
           expect(recipe).to.be.an('object')
@@ -41,7 +45,8 @@ describe('GET /recipes', () => {
   })
 
   it('should return the correct fields', done => {
-    api.get('/api/recipes')
+    api
+      .get('/api/recipes')
       .end((err, res) => {
         res.body.forEach(recipe => {
           expect(recipe).to.contains.keys([
@@ -60,7 +65,8 @@ describe('GET /recipes', () => {
   })
 
   it('should return the correct data types', done => {
-    api.get('/api/recipes')
+    api
+      .get('/api/recipes')
       .end((err, res) => {
         res.body.forEach(recipe => {
           expect(recipe._id).to.be.a('string')

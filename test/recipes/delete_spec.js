@@ -11,7 +11,8 @@ describe('DELETE /recipes/:id', () => {
   let token = null
 
   beforeEach(done => {
-    Recipe.create(recipeData)
+    Recipe
+      .create(recipeData)
       .then(recipes => {
         recipe = recipes[0]
         return User.create(userData)
@@ -23,13 +24,15 @@ describe('DELETE /recipes/:id', () => {
   })
 
   afterEach(done => {
-    Recipe.deleteOne({})
+    Recipe
+      .deleteOne({})
       .then(() => User.deleteOne({}))
       .then(() => done())
   })
 
   it('should return a 401 response without a token', done => {
-    api.delete(`/api/recipes/${recipe._id}`)
+    api
+      .delete(`/api/recipes/${recipe._id}`)
       .end((err, res) => {
         expect(res.status).to.eq(401)
         done()
@@ -37,7 +40,8 @@ describe('DELETE /recipes/:id', () => {
   })
 
   it('should return a 204 response with a token', done => {
-    api.delete(`/api/recipes/${recipe._id}`)
+    api
+      .delete(`/api/recipes/${recipe._id}`)
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         expect(res.status).to.eq(204)
@@ -46,7 +50,8 @@ describe('DELETE /recipes/:id', () => {
   })
 
   it('should actually delete the data', done => {
-    api.delete(`/api/recipes/${recipe._id}`)
+    api
+      .delete(`/api/recipes/${recipe._id}`)
       .set('Authorization', `Bearer ${token}`)
       .end(() => {
         Recipe.findById(recipe._id)
