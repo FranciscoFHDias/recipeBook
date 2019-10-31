@@ -10,6 +10,7 @@ import Register from './components/auth/register'
 import IndexRecipes from './components/recipes/indexRecipes'
 import Navbar from './components/common/navbar'
 import ShowRecipe from './components/recipes/showRecipe'
+import NewRecipe from './components/recipes/newRecipe'
 
 class App extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/register" component={ Register } />
           <Route path="/login" component={ Login } />
+          <SecureRoute path="/recipes/new" component={ NewRecipe } />
           <SecureRoute path="/recipes/:id" component={ ShowRecipe } />
           <SecureRoute path="/recipes" component={ IndexRecipes } />
           <Route path="/" component={ Home } />
