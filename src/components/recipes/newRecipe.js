@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react';
+import CreatableSelect from 'react-select/creatable'
 import axios from 'axios'
 import Auth from '../../lib/auth'
 import Filestack from 'filestack-react'
@@ -18,16 +19,30 @@ const options = {
   }
 }
 
+const createOption = (label) => ({
+  label,
+  value: label
+})
+
+const components = {
+  DropdownIndicator: null
+}
+
 class NewRecipe extends React.Component{
   constructor() {
     super()
     this.state = {
       formData: {},
-      errors: {}
+      errors: {},
+      inputValue: '',
+      value: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleUploadImages = this.handleUploadImages.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+
   }
 
   handleSubmit(e) {
@@ -48,6 +63,36 @@ class NewRecipe extends React.Component{
   handleUploadImages(result) {
     const formData = {...this.state.formData, image: result.filesUploaded[0].url}
     this.setState({ formData })
+  }
+
+  // eslint-disable-next-line no-dupe-class-members
+  handleChange(value, actionMeta) {
+    console.group('Value Changed')
+    console.log(value)
+    console.log(`action: ${actionMeta.action}`)
+    console.groupEnd()
+    this.setState({ value })
+  }
+
+  handleInputChange (inputValue) {
+    this.setState({ inputValue })
+  }
+
+  handleKeyDown (event) {
+    const { inputValue, value } = this.state
+    if (!inputValue) return
+    switch (event.key) {
+      case 'Enter':
+      case 'Tab':
+        console.group('Value Added')
+        console.log(value)
+        console.groupEnd()
+        this.setState({
+          inputValue: '',
+          value: [...value, createOption(inputValue)]
+        })
+        event.preventDefault()
+    }
   }
 
   render() {
@@ -74,7 +119,7 @@ class NewRecipe extends React.Component{
                   <div className="field">
                     <label className="label">Description</label>
                     <input
-                      className="input"
+                      className="textarea"
                       name="description"
                       placeholder="eg: This custard tart recipe makes as-close-to-authentic Portuguese custard tarts with a rich egg custard nestled in shatteringly crisp pastry."
                       onChange={this.handleChange}
@@ -84,17 +129,18 @@ class NewRecipe extends React.Component{
                   <div className="field">
                     <label className="label">Ingredients</label>
                     <input
-                      className="input"
+                      className="textarea"
                       name="ingredients"
-                      placeholder="eg: This custard tart recipe makes as-close-to-authentic Portuguese custard tarts with a rich egg custard nestled in shatteringly crisp pastry."
+                      placeholder="eg: 200ml double cream"
                       onChange={this.handleChange}
                     />
                     {this.state.errors.ingredients && <small className="help is-danger">{this.state.errors.ingredients}</small>}
                   </div>
                   <div className="field">
-                    <label className="label">Preparation Time</label>
+                    <label className="label">Preparation Time (min)</label>
                     <input
                       className="input"
+                      type="number"
                       name="preparationTime"
                       placeholder="eg: 10"
                       onChange={this.handleChange}
@@ -102,9 +148,10 @@ class NewRecipe extends React.Component{
                     {this.state.errors.preparationTime && <small className="help is-danger">{this.state.errors.preparationTime}</small>}
                   </div>
                   <div className="field">
-                    <label className="label">Cooking Time</label>
+                    <label className="label">Cooking Time (min)</label>
                     <input
                       className="input"
+                      type="number"
                       name="cookingTime"
                       placeholder="eg: 10"
                       onChange={this.handleChange}
@@ -116,17 +163,30 @@ class NewRecipe extends React.Component{
                     <input
                       className="input"
                       name="dietary"
-                      placeholder="eg: 10"
+                      placeholder="eg: vegetarian"
                       onChange={this.handleChange}
                     />
                     {this.state.errors.dietary && <small className="help is-danger">{this.state.errors.dietary}</small>}
                   </div>
                   <div className="field">
                     <label className="label">Method</label>
-                    <input
-                      className="input"
+                    <CreatableSelect
                       name="method"
-                      placeholder="eg: 10"
+                      components={components}
+                      inputValue={this.state.inputValue}
+                      isClearable
+                      isMulti
+                      menuIsOpen={false}
+                      onChange={this.handleChange}
+                      onInputChange={this.handleInputChange}
+                      onKeyDown={this.handleKeyDown}
+                      placeholder="Type something and press enter..."
+                      value={this.state.value}
+                    />
+                    <input
+                      className="textarea"
+                      name="method"
+                      placeholder="eg: Put the cream and milk into a large pan and gently bring to just below boiling point. Meanwhile, in a large bowl, whisk the yolks, cornflour, sugar and vanilla. Gradually pour the hot milk mixture onto the sugar mixture, whisking constantly."
                       onChange={this.handleChange}
                     />
                     {this.state.errors.method && <small className="help is-danger">{this.state.errors.method}</small>}
