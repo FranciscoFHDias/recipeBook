@@ -2,6 +2,10 @@
   "name": "recipeBook",
   "version": "1.0.0",
   "main": "index.js",
+  
+  "repository": "git@github.com:FranciscoFHDias/recipeBook.git",
+  "author": "Francisco Dias <francisco.ffbhd@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "seed": "node db/seeds.js",
     "serve:backend": "nodemon",
@@ -10,9 +14,6 @@
     "start": "node index",
     "build": "webpack -p"
   },
-  "repository": "git@github.com:FranciscoFHDias/recipeBook.git",
-  "author": "Francisco Dias <francisco.ffbhd@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",

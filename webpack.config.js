@@ -29,10 +29,7 @@ module.exports = {
     port: 8000,
     watchContentBase: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:4000',
-        secure: false
-      }
+      '/api': 'http://localhost:4000'
     }
   },
   plugins: [
