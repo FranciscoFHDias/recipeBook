@@ -14,7 +14,6 @@ const options = {
   },
   transformations: {
     crop: true,
-    circle: true,
     rotate: true
   }
 }
@@ -32,30 +31,45 @@ class NewRecipe extends React.Component{
   constructor() {
     super()
     this.state = {
-      formData: {},
+      formData: {
+      },
       errors: {},
-      inputValue: '',
-      value: []
+      inputValueMethod: '',
+      inputValueDietary: '',
+      inputValueIngredients: '',
+      valueMethod: [],
+      valueDietary: [],
+      valueIngredients: []
     }
+    console.log(`state${this.state.valueMethod}`)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeMethod = this.handleChangeMethod.bind(this)
+    this.handleKeyDownMethod = this.handleKeyDownMethod.bind(this)
+    this.handleInputChangeMethod = this.handleInputChangeMethod.bind(this)
+    this.handleChangeDietary = this.handleChangeDietary.bind(this)
+    this.handleKeyDownDietary = this.handleKeyDownDietary.bind(this)
+    this.handleInputChangeDietary = this.handleInputChangeDietary.bind(this)
+    this.handleChangeIngredients = this.handleChangeIngredients.bind(this)
+    this.handleKeyDownIngredients = this.handleKeyDownIngredients.bind(this)
+    this.handleInputChangeIngredients = this.handleInputChangeIngredients.bind(this)
+    this.handleChangeString = this.handleChangeString.bind(this)
     this.handleUploadImages = this.handleUploadImages.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
-
+    
   }
 
   handleSubmit(e) {
+    const data = { ...this.state.formData, method: this.state.valueMethod.map(step => step.value), ingredients: this.state.valueIngredients.map(ingredient => ingredient.value), dietary: this.state.valueDietary.map(diet => diet.value)}
+    console.log(data)
     e.preventDefault()
     axios
-      .post('/api/recipes', this.state.formData, {
+      .post('/api/recipes', data, {
         headers: { Authorization: `Bearer ${Auth.getToken()}`}
       })
       .then(() => this.props.history.push('/recipes'))
       .catch(err => this.setState({ errors: err.response.data.errors }))
   }
 
-  handleChange(e) {
+  handleChangeString(e) {
     const formData = { ...this.state.formData, [e.target.name]: e.target.value }
     this.setState({ formData })
   }
@@ -65,38 +79,93 @@ class NewRecipe extends React.Component{
     this.setState({ formData })
   }
 
-  // eslint-disable-next-line no-dupe-class-members
-  handleChange(value, actionMeta) {
+  handleInputChangeMethod (inputValueMethod) {
+    this.setState({ inputValueMethod })
+  }
+
+  handleChangeMethod(valueMethod, actionMeta) {
     console.group('Value Changed')
-    console.log(value)
     console.log(`action: ${actionMeta.action}`)
     console.groupEnd()
-    this.setState({ value })
+    this.setState({ valueMethod })
   }
 
-  handleInputChange (inputValue) {
-    this.setState({ inputValue })
-  }
-
-  handleKeyDown (event) {
-    const { inputValue, value } = this.state
-    if (!inputValue) return
+  handleKeyDownMethod (event) {
+    const { inputValueMethod, valueMethod } = this.state
+    if (!inputValueMethod) return
     switch (event.key) {
       case 'Enter':
       case 'Tab':
         console.group('Value Added')
-        console.log(value)
+        console.log(valueMethod)
         console.groupEnd()
         this.setState({
-          inputValue: '',
-          value: [...value, createOption(inputValue)]
+          inputValueMethod: '',
+          valueMethod: [...valueMethod, createOption(inputValueMethod)]
+        })
+        event.preventDefault()
+    }
+  }
+
+  handleInputChangeDietary (inputValueDietary) {
+    this.setState({ inputValueDietary })
+  }
+
+  handleChangeDietary(valueDietary, actionMeta) {
+    console.group('Value Changed')
+    console.log(`action: ${actionMeta.action}`)
+    console.groupEnd()
+    this.setState({ valueDietary })
+  }
+
+  handleKeyDownDietary (event) {
+    const { inputValueDietary, valueDietary } = this.state
+    if (!inputValueDietary) return
+    switch (event.key) {
+      case 'Enter':
+      case 'Tab':
+        console.group('Value Added')
+        console.log(valueDietary)
+        console.groupEnd()
+        this.setState({
+          inputValueDietary: '',
+          valueDietary: [...valueDietary, createOption(inputValueDietary)]
+        })
+        event.preventDefault()
+    }
+  }
+
+  handleInputChangeIngredients (inputValueIngredients) {
+    this.setState({ inputValueIngredients })
+  }
+
+  handleChangeIngredients(valueIngredients, actionMeta) {
+    console.group('Value Changed')
+    console.log(`action: ${actionMeta.action}`)
+    console.groupEnd()
+    this.setState({ valueIngredients })
+  }
+
+  handleKeyDownIngredients (event) {
+    const { inputValueIngredients, valueIngredients } = this.state
+    if (!inputValueIngredients) return
+    switch (event.key) {
+      case 'Enter':
+      case 'Tab':
+        console.group('Value Added')
+        console.log(valueIngredients)
+        console.groupEnd()
+        this.setState({
+          inputValueIngredients: '',
+          valueIngredients: [...valueIngredients, createOption(inputValueIngredients)]
         })
         event.preventDefault()
     }
   }
 
   render() {
-    console.log(this.state.formData)
+    console.log(this.state)
+    const { inputValueMethod, valueMethod, inputValueDietary ,valueDietary, inputValueIngredients ,valueIngredients } = this.state
     return(
       <section className="hero is-large">
         <div className="hero-body">
@@ -112,7 +181,7 @@ class NewRecipe extends React.Component{
                       className="input"
                       name="name"
                       placeholder="eg: Custard Tarts"
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeString}
                     />
                     {this.state.errors.name && <small className="help is-danger">{this.state.errors.name}</small>}
                   </div>
@@ -122,17 +191,23 @@ class NewRecipe extends React.Component{
                       className="textarea"
                       name="description"
                       placeholder="eg: This custard tart recipe makes as-close-to-authentic Portuguese custard tarts with a rich egg custard nestled in shatteringly crisp pastry."
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeString}
                     />
                     {this.state.errors.description && <small className="help is-danger">{this.state.errors.description}</small>}
                   </div>
                   <div className="field">
                     <label className="label">Ingredients</label>
-                    <input
-                      className="textarea"
-                      name="ingredients"
+                    <CreatableSelect
+                      components={components}
+                      inputValue={inputValueIngredients}
+                      isClearable
+                      isMulti
+                      menuIsOpen={false}
+                      onChange={this.handleChangeIngredients}
+                      onInputChange={this.handleInputChangeIngredients}
+                      onKeyDown={this.handleKeyDownIngredients}
                       placeholder="eg: 200ml double cream"
-                      onChange={this.handleChange}
+                      value={valueIngredients}
                     />
                     {this.state.errors.ingredients && <small className="help is-danger">{this.state.errors.ingredients}</small>}
                   </div>
@@ -143,7 +218,7 @@ class NewRecipe extends React.Component{
                       type="number"
                       name="preparationTime"
                       placeholder="eg: 10"
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeString}
                     />
                     {this.state.errors.preparationTime && <small className="help is-danger">{this.state.errors.preparationTime}</small>}
                   </div>
@@ -154,40 +229,39 @@ class NewRecipe extends React.Component{
                       type="number"
                       name="cookingTime"
                       placeholder="eg: 10"
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeString}
                     />
                     {this.state.errors.cookingTime && <small className="help is-danger">{this.state.errors.cookingTime}</small>}
                   </div>
                   <div className="field">
                     <label className="label">Dietary</label>
-                    <input
-                      className="input"
-                      name="dietary"
-                      placeholder="eg: vegetarian"
-                      onChange={this.handleChange}
+                    <CreatableSelect
+                      components={components}
+                      inputValue={inputValueDietary}
+                      isClearable
+                      isMulti
+                      menuIsOpen={false}
+                      onChange={this.handleChangeDietary}
+                      onInputChange={this.handleInputChangeDietary}
+                      onKeyDown={this.handleKeyDownDietary}
+                      placeholder="eg: Vegetarian"
+                      value={valueDietary}
                     />
                     {this.state.errors.dietary && <small className="help is-danger">{this.state.errors.dietary}</small>}
                   </div>
                   <div className="field">
                     <label className="label">Method</label>
                     <CreatableSelect
-                      name="method"
                       components={components}
-                      inputValue={this.state.inputValue}
+                      inputValue={inputValueMethod}
                       isClearable
                       isMulti
                       menuIsOpen={false}
-                      onChange={this.handleChange}
-                      onInputChange={this.handleInputChange}
-                      onKeyDown={this.handleKeyDown}
-                      placeholder="Type something and press enter..."
-                      value={this.state.value}
-                    />
-                    <input
-                      className="textarea"
-                      name="method"
-                      placeholder="eg: Put the cream and milk into a large pan and gently bring to just below boiling point. Meanwhile, in a large bowl, whisk the yolks, cornflour, sugar and vanilla. Gradually pour the hot milk mixture onto the sugar mixture, whisking constantly."
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeMethod}
+                      onInputChange={this.handleInputChangeMethod}
+                      onKeyDown={this.handleKeyDownMethod}
+                      placeholder="eg: Put the cream and milk into a large pan and gently bring to just below boiling point."
+                      value={valueMethod}
                     />
                     {this.state.errors.method && <small className="help is-danger">{this.state.errors.method}</small>}
                   </div>
