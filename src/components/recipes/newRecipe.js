@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react'
 import CreatableSelect from 'react-select/creatable'
 import axios from 'axios'
 import Auth from '../../lib/auth'
 import Filestack from 'filestack-react'
-import { filestackKey } from '../../../config/environment'
 
 const options = {
   accept: 'image/*',
@@ -87,7 +86,7 @@ class NewRecipe extends React.Component{
     console.group('Value Changed')
     console.log(`action: ${actionMeta.action}`)
     console.groupEnd()
-    this.setState({ valueMethod })
+    this.setState({ valueMethod: [] })
   }
 
   handleKeyDownMethod (event) {
@@ -115,7 +114,7 @@ class NewRecipe extends React.Component{
     console.group('Value Changed')
     console.log(`action: ${actionMeta.action}`)
     console.groupEnd()
-    this.setState({ valueDietary })
+    this.setState({ valueDietary: [] })
   }
 
   handleKeyDownDietary (event) {
@@ -143,7 +142,7 @@ class NewRecipe extends React.Component{
     console.group('Value Changed')
     console.log(`action: ${actionMeta.action}`)
     console.groupEnd()
-    this.setState({ valueIngredients })
+    this.setState({ valueIngredients: [] })
   }
 
   handleKeyDownIngredients (event) {
@@ -270,7 +269,7 @@ class NewRecipe extends React.Component{
                     <a>
                       <Filestack
                         mode="transform"
-                        apikey={filestackKey}
+                        apikey= {process.env.FILESTACKKEY}
                         options={options}
                         onSuccess={(result) => this.handleUploadImages(result)}
                         preload={true}
