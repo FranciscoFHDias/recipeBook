@@ -203,6 +203,13 @@ module.exports = router
 > **Blockers**
 
 ## Future Content/Features
+* Update recipe
+* View all users
+* Show user account
+* Update user account
+* Delete user account
+* Recipes likes and comments
+* User favourites
 
 ## What I learnt
 * Refreshed my understanding of the functionality of Express, Mongoose, CRUD functionality and different between embedded and referenced data,
