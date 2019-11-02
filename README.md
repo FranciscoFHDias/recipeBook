@@ -51,7 +51,10 @@ Recipe Book is your best cooking buddy. A virtual space where you can find, save
   
  > **Future Features:**
   - Update recipe
-  - Update user information
+  - View all users
+  - Show user account
+  - Update user account
+  - Delete user account
   - Recipes likes and comments
   - User favourites
   
@@ -122,3 +125,88 @@ userSchema.methods.validatePassword = function validatePassword(plaintext) {
 
 module.exports = mongoose.model('User', userSchema)
 ```
+
+**Controllers** - The focus then moved to the different controllers.
+
+Example:
+```js
+const Recipe = require('../models/Recipe')
+
+function indexRoute(req, res, next) {
+  Recipe
+    .find(req.query)
+    .then(recipes => res.json(recipes))
+    .catch(next)
+}
+
+function showRoute(req, res, next) {
+  Recipe
+    .findById(req.params.id)
+    .then(recipe => {
+      if(!recipe) return res.sendStatus(404)
+      return res.json(recipe)
+    })
+    .catch(next)
+}
+```
+
+**RESTFul API Routes**
+
+```js
+const router = require('express').Router()
+const recipesController = require('../controllers/recipes')
+const usersController = require('../controllers/users')
+const authController = require('../controllers/auth')
+const secureRoute = require('../lib/secureRoute')
+
+router.get('/', (req, res) => {
+  res.json({ message: 'Hello World!' })
+})
+
+router
+  .route('/recipes')
+  .get(recipesController.index)
+  .post(secureRoute, recipesController.create)
+
+router
+  .route('/recipes/:id')
+  .get(recipesController.show)
+  .put(secureRoute, recipesController.update)
+  .delete(secureRoute, recipesController.delete)
+
+router
+  .get('/profiles', usersController.usersIndex)
+
+router
+  .route('/profiles/:id')
+  .get(secureRoute, usersController.userShow)
+  .put(secureRoute, usersController.userUpdate)
+  .delete(secureRoute, usersController.userDelete)
+
+router
+  .post('/register', authController.register)
+
+router
+  .post('/login', authController.login)
+
+module.exports = router
+```
+### Front-End
+
+**Technology used** - React, React-Select and Bulma.
+
+**Styling** - I choose a minimalist and clean design to make the user experience accessible to most people. This approach freed up each page to display a large amount of text used when relaying a recipe to someone.
+
+## Wins and Blockers
+> **Wins**
+
+> **Blockers**
+
+## Future Content/Features
+
+## What I learnt
+* Refresed my understanding of the functionality of Express, Mongoose, CRUD functionality and different between embedded and referenced data,
+* Embedded JS, single page app with React and the use of Bulma,
+* Team planning and communication.
+
+
