@@ -59,8 +59,7 @@ Recipe Book is your best cooking buddy. A virtual space where you can find, save
 
 **Technology used** - MongoDB, Express and Mongoose.
 
-**Models**
-Started by creating the models for both recipe and user.
+**Models** - I started by creating the models for both recipe and user.
 
 ```js
 const mongoose = require('mongoose')
