@@ -205,8 +205,5 @@ module.exports = router
 ## Future Content/Features
 
 ## What I learnt
-* Refresed my understanding of the functionality of Express, Mongoose, CRUD functionality and different between embedded and referenced data,
-* Embedded JS, single page app with React and the use of Bulma,
-* Team planning and communication.
-
-
+* Refreshed my understanding of the functionality of Express, Mongoose, CRUD functionality and different between embedded and referenced data,
+* Refreshed JS, single page app with React and the use of Bulma.
