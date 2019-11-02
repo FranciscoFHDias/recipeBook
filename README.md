@@ -11,4 +11,4 @@
 * Run `mongo`, `yarn seed`, `yarn serve:backend` and `yarn serve:frontend` in the CLI
 
 ## Overview
-Date-a-Base is a virtual community where everyone can find and share advices about beautiful and funny locations in London and surroundings, suitable for a dating. The type of locations meet a wide range of preferences which can be filtered depending on the expectations.
+
