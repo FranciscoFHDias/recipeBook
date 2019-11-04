@@ -22,7 +22,7 @@ Functions are one of the most essential parts of computer programing. You'll be 
 
 Functions have three main parts:
 
-![function declaration](https://user-images.githubusercontent.com/3531085/35194737-10b8670a-feb0-11e7-9ab5-25a0sb4edd01.png)
+![function declaration](https://i.imgur.com/XNBuuIC.png)
 
 >**Does it matters what names we give parameters?** No
 
