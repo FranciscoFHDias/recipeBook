@@ -1,12 +1,16 @@
 # Functions
+Functions are one of the most essential parts of computer programing. You'll be using them a lot!
 
 ## What is a function?
 * A chunks of logic
+* A block of code
 * A small program
+* A first-class object - it means there are no restrictions on the object's use.
 
 ## Why using functions?
-**Less repetitive code** - which makes easier to read and debug
-**Increased reusability** - which makes easier to maintain
+**It will make your code less repetitive** - therefore making it easier to read and debug,
+
+**It also increases its reusability** - which makes your code easier for you and others to maintain.
 
 ## How to use function in code?
 
@@ -18,7 +22,11 @@
 
 Functions have three main parts:
 
-![function declaration](https://user-images.githubusercontent.com/3531085/35194737-10b8670a-feb0-11e7-9ab5-25a0eb4edd01.png)
+![function declaration](https://user-images.githubusercontent.com/3531085/35194737-10b8670a-feb0-11e7-9ab5-25a0sb4edd01.png)
+
+>**Does it matters what names we give parameters?** No
+
+>**How many parameters can a function have?** As many as you would like but remember that a function should have one job and do it well! It's better to have different functions rather than functions inside functions.  
 
 ### Call / Invoke a Function
 
@@ -27,6 +35,11 @@ When the function is declared it means the it has been loaded into memory and is
 ```js
 add(2, 6) // => 8
 ```
+>**Can we pass a function as an argument?** Yes, we call those callback functions.
+
+>**What does callback means?** It's a piece of executable code passed as an argument to other code, and it's used when you need it to - synchronously or asynchronously.
+
+>**What is the difference between an argument and a parameter?** A parameter is a variable in a function definition and a variable within the scope of the function. An argument is the values you pass into the function when you call it.
 
 ## Different ways of declaring a function
 
@@ -58,13 +71,7 @@ Using a named function is generally better because named functions make debuggin
 
 ## Important notes
 
-* If you don't use the return keyword at in the function it will return undefined.
-```js
-function add(a, b) {
-  return a + b
-}
-add(3) // => NaN
-```
+* If you **don't use the return** keyword at in the function it will return **undefined**.
 
 * If you omit an argument when you call a function it will become undefined, which can cause unexpected results.
 ```js
@@ -81,3 +88,7 @@ function add(a=0, b=0) {
 }
 add(10) // => 10
 ```
+
+>**Does the order of the arguments matter?** Yes! Named parameters are not native to JS. Some languages such as Python will have this functionality.
+
+>**What does NaN mean?** Not a Number - This happens when a number we were supposed to get isn't a number. Example when trying to subtract a 'cucumber' from 10.
