@@ -92,3 +92,7 @@ add(10) // => 10
 >**Does the order of the arguments matter?** Yes! Named parameters are not native to JS. Some languages such as Python will have this functionality.
 
 >**What does NaN mean?** Not a Number - This happens when a number we were supposed to get isn't a number. Example when trying to subtract a 'cucumber' from 10.
+
+## Further reading and practice
+
+* [How to define functions in JS?](https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript)
